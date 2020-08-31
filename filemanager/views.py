@@ -4,7 +4,8 @@ from django.views.generic import TemplateView, FormView
 from django.views.generic.base import View
 from django.shortcuts import HttpResponse
 from django.http import HttpResponseBadRequest
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse
+# from django.core.urlresolvers import reverse_lazy
 
 from filemanager.forms import DirectoryCreateForm
 from filemanager.core import Filemanager
@@ -94,7 +95,7 @@ class DirectoryCreateView(FilemanagerMixin, FormView):
     }]
 
     def get_success_url(self):
-        url = '%s?path=%s' % (reverse_lazy('filemanager:browser'), self.fm.path)
+        url = '%s?path=%s' % (reverse('filemanager:browser'), self.fm.path)
         if hasattr(self, 'popup') and self.popup:
             url += '&popup=1'
         return url
